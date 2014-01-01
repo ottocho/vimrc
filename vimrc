@@ -1,13 +1,15 @@
 " ottocho
-" 2013.12.07
+" 2014.01.01
 
 let mapleader = ","
 let g:mapleader = ","
 
-set enc=utf-8
-set tenc=utf-8
-set fenc=utf-8
-set fencs=utf-8,usc-bom   "fileencodings
+" encoding
+set fileencodings=utf-8,gb18030,utf-16,usc-bom,big5,latin1
+set encoding=utf8
+  set termencoding=utf-8
+  "set termencoding=gb18030
+"set fileencoding=utf8      "no need to set this
 
 "        filetype plugin indent on
 "        set autoindent
@@ -28,8 +30,7 @@ set number
 set history=50
 set background=dark
 set tabstop=4
-set mps+=<:>        " add <> to match pairs
-"set sw=4
+set matchpairs+=<:>        " add <> to match pairs
 set shiftwidth=4
 set showmatch
 set ruler
@@ -45,8 +46,8 @@ set guioptions-=T
 set noerrorbells
 set winaltkeys=no
 set novisualbell
-set t_vb=
-set noexrc " don't use local version of .(g)vimrc, .exr
+set t_vb=       " disable visual bell
+set noexrc      " don't use local version of .(g)vimrc, .exr
 set cpoptions=aABceFsmq
 set cmdheight=1
 set laststatus=2
@@ -57,6 +58,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" disable the F1
+noremap <F1> <Esc>"
 
 " break long lines
 map j gj
@@ -116,6 +120,12 @@ function! VisualSelection(direction) range
     let @" = l:saved_reg
 endfunction
 
+" keep search pattern at the center of the screen."
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+
 " theme (https://github.com/altercation/vim-colors-solarized)
 colorscheme solarized
 if has('gui_running')
@@ -159,3 +169,6 @@ nnoremap <leader>w <C-W><C-R>
 nnoremap <leader>q :q<CR>
 " ,w :w
 nnoremap <leader>w :w<CR>
+" ,s : select all
+map <Leader>a ggVG"
+
