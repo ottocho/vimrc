@@ -1,0 +1,28 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+#	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <silent> # #zz$/;"	m	language:Vim
+#	/home/ottocho/.config/vimrc/vimrc	/^vnoremap <silent> # :call VisualSelection('b')<CR>$/;"	m	language:Vim
+*	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <silent> * *zz$/;"	m	language:Vim
+*	/home/ottocho/.config/vimrc/vimrc	/^vnoremap <silent> * :call VisualSelection('f')<CR>$/;"	m	language:Vim
+<	/home/ottocho/.config/vimrc/vimrc	/^vnoremap < <gv$/;"	m	language:Vim
+<C-h>	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <C-h> <C-w>h$/;"	m	language:Vim
+<C-H>	/home/ottocho/.config/vimrc/vimrc	/^vnoremap <silent> <C-H> :call VisualSelection('replace')<CR>$/;"	m	language:Vim
+<C-j>	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <C-j> <C-w>j$/;"	m	language:Vim
+<C-k>	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <C-k> <C-w>k$/;"	m	language:Vim
+<C-l>	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <C-l> <C-w>l$/;"	m	language:Vim
+<F1>	/home/ottocho/.config/vimrc/vimrc	/^noremap <F1> <Esc>"$/;"	m	language:Vim
+<Leader>a	/home/ottocho/.config/vimrc/vimrc	/^map <Leader>a ggVG"$/;"	m	language:Vim
+<leader>n	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <silent> <leader>n :set nonumber!<CR>$/;"	m	language:Vim
+<leader>p	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <leader>p :!python2.7 %<CR>$/;"	m	language:Vim
+<leader>q	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <leader>q :q<CR>$/;"	m	language:Vim
+<leader>r	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <leader>r <C-W><C-R>$/;"	m	language:Vim
+<leader>w	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <leader>w :w<CR>$/;"	m	language:Vim
+>	/home/ottocho/.config/vimrc/vimrc	/^vnoremap > >gv$/;"	m	language:Vim
+AddTitlePython	/home/ottocho/.config/vimrc/vimrc	/^function AddTitlePython()$/;"	f	language:Vim
+CmdLine	/home/ottocho/.config/vimrc/vimrc	/^function! CmdLine(str)$/;"	f	language:Vim
+DeleteTrailingWhiteSpace	/home/ottocho/.config/vimrc/vimrc	/^func! DeleteTrailingWhiteSpace()$/;"	f	language:Vim
+j	/home/ottocho/.config/vimrc/vimrc	/^map j gj$/;"	m	language:Vim
+k	/home/ottocho/.config/vimrc/vimrc	/^map k gk$/;"	m	language:Vim
+n	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <silent> n nzz$/;"	m	language:Vim
+N	/home/ottocho/.config/vimrc/vimrc	/^nnoremap <silent> N Nzz$/;"	m	language:Vim
+UpdateDate	/home/ottocho/.config/vimrc/vimrc	/^func! UpdateDate()$/;"	f	language:Vim
+VisualSelection	/home/ottocho/.config/vimrc/vimrc	/^function! VisualSelection(direction) range$/;"	f	language:Vim

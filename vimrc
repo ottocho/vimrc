@@ -1,30 +1,39 @@
 " ottocho
-" 2014.01.01
+" 2015.04.11
 
-let mapleader = ","
-let g:mapleader = ","
 
-" encoding
+""" encoding
 set fileencodings=utf-8,gb18030,utf-16,usc-bom,big5,latin1
 set encoding=utf8
   set termencoding=utf-8
   "set termencoding=gb18030
 "set fileencoding=utf8      "no need to set this
 
-"        filetype plugin indent on
-"        set autoindent
-"        set smartindent
 
-"set backup " make backup files
 
-"set cin
+""" indent
+"filetype plugin indent on
+set smartindent "set cindent "set autoindent
+"set expandtab   " tab -> blank
+
+
+
+""" map leader
+let mapleader = ","
+let g:mapleader = ","
+
+
+
+""" common config
+syntax enable
+set gdefault
 set ignorecase smartcase
 set wildmenu
+set wildmode=list:longest
 set foldmethod=manual
 set helplang=cn
 set sta
-set backspace=2
-syntax enable
+set backspace=indent,eol,start
 set nocompatible
 set number
 set history=50
@@ -32,10 +41,9 @@ set background=dark
 set tabstop=4
 set matchpairs+=<:>        " add <> to match pairs
 set shiftwidth=4
-set showmatch
 set ruler
-set expandtab
 set incsearch
+set showmatch
 set hlsearch
 set winaltkeys=no
 set showmode
@@ -52,6 +60,8 @@ set cpoptions=aABceFsmq
 set cmdheight=1
 set laststatus=2
 set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)
+set modelines=0
+set splitright
 
 " move between windows by Ctrl+j/k/h/l
 nnoremap <C-h> <C-w>h
@@ -63,12 +73,16 @@ nnoremap <C-l> <C-w>l
 noremap <F1> <Esc>"
 
 " break long lines
-map j gj
-map k gk
+noremap <silent> j gj
+noremap <silent> k gk
+noremap <silent> 0 g0
+noremap <silent> $ g$
+noremap <silent> ^ g^
+noremap <silent> _ g_
 
-" http://www.vim.org/scripts/script.php?script_id=273
-let Tlist_Show_One_File = 1
-let Tlist_Exit_OnlyWindow = 1
+" multiple indent in visual mode
+vnoremap < <gv
+vnoremap > >gv
 
 " return to last edit position
 if has("autocmd")
@@ -78,6 +92,9 @@ if has("autocmd")
      \ endif
 endif
 
+" save whenever you lose focus
+autocmd FocusLost * :wa
+
 " delete trailing whitespace on save
 func! DeleteTrailingWhiteSpace()
   exe "normal mz"
@@ -86,14 +103,19 @@ func! DeleteTrailingWhiteSpace()
 endfunc
 autocmd BufWrite * :call DeleteTrailingWhiteSpace()
 
-" multiple indent in visual mode
-vnoremap < <gv
-vnoremap > >gv
 " '*' and '#' to search the selected content(visual mode)
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 " Ctrl+H to search the selected content(visual mode)
 vnoremap <silent> <C-H> :call VisualSelection('replace')<CR>
+" ,<space> clear out hilighting from search
+noremap <leader>s :nohlsearch<cr>
+
+" keep search pattern at the center of the screen."
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
 
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
@@ -120,20 +142,6 @@ function! VisualSelection(direction) range
     let @" = l:saved_reg
 endfunction
 
-" keep search pattern at the center of the screen."
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-
-" theme (https://github.com/altercation/vim-colors-solarized)
-colorscheme solarized
-if has('gui_running')
-  set background=light
-else
-  set background=dark
-endif
-
 " auto update the `last modified time`
 func! UpdateDate()
   exe "normal my"
@@ -145,7 +153,7 @@ autocmd BufWritePost *.py call UpdateDate()
 
 " add title for new py file
 function AddTitlePython()
-    call setline(1, "#!/usr/bin/env python")
+    call setline(1, "#!/usr/bin/python2.7")
     call append(1, "#coding:utf8")
     call append(2,"")
     call append(3, '"""')
@@ -164,11 +172,83 @@ nnoremap <silent> <leader>n :set nonumber!<CR>
 " ,p run python
 nnoremap <leader>p :!python2.7 %<CR>
 " ,r rotate windows
-nnoremap <leader>w <C-W><C-R>
+nnoremap <leader>r <C-W><C-R>
 " ,q :q
 nnoremap <leader>q :q<CR>
 " ,w :w
 nnoremap <leader>w :w<CR>
-" ,s : select all
+" ,a : select all
 map <Leader>a ggVG"
+
+" Make these commonly mistyped commands still work
+command! WQ wq
+command! Wq wq
+command! Wqa wqa
+command! W w
+command! Q q
+
+""" vundle settings
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin('/home/ottocho/.vim/bundle/')
+Plugin 'gmarik/Vundle.vim'
+Plugin 'L9'
+" theme
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
+" tag and tab
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
+Plugin 'majutsushi/tagbar'
+" git support
+"Plugin 'airblade/vim-gitgutter'
+"Plugin 'tpope/vim-fugitive'
+" swtich between source files and header files
+Plugin 'vim-scripts/a.vim'
+Plugin 'Raimondi/delimitMate'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'tpope/vim-eunuch'
+Plugin 'scrooloose/nerdcommenter'
+Bundle 'uarun/vim-protobuf'
+call vundle#end()
+
+
+
+""" Plugin settings
+
+"" Plugin 'altercation/vim-colors-solarized'
+set background=dark
+colorscheme solarized
+
+"" Plugin 'scrooloose/nerdtree'
+nmap <silent> <leader>l :NERDTreeTabsToggle<CR>
+" 1/0: y/n NERDTree open on startup
+let g:nerdtree_tabs_open_on_console_startup = 0
+
+"" Plugin 'xolox/vim-easytags'
+" Where to look for tags files
+"set tags=./.tags,./tags,../tags,~/.vimtags  " project specific tags
+"let g:easytags_dynamic_files = 2
+let g:easytags_file = '~/.tags' " global tag
+let g:easytags_events = ['BufReadPost', 'BufWritePost']
+let g:easytags_async = 1
+let g:easytags_resolve_links = 1
+let g:easytags_suppress_ctags_warning = 1
+
+"" Plugin 'majutsushi/tagbar'
+" ,t: Open/close tagbar with
+nmap <silent> <leader>t :TagbarToggle<CR>
+" 0: y/n automatically whenever possible
+"autocmd BufEnter * nested :call tagbar#autoopen(0)
+"
+"" Plugin 'Raimondi/delimitMate'
+let delimitMate_expand_cr = 1
+augroup mydelimitMate
+  au!
+  au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
+  au FileType tex let b:delimitMate_quotes = ""
+  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
+  au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+augroup END
 
