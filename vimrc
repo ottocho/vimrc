@@ -175,7 +175,7 @@ let g:mapleader = ","
 """ leader mapping
 " ,a : select all
 nnoremap <leader>a ggVG"
-" ,l : nerd tree tabs
+" ,l : toggle nerd tree tabs
 nmap <silent> <leader>l :NERDTreeTabsToggle<CR>
 " ,n : toggle line number
 nnoremap <silent> <leader>n :set nonumber!<CR>
@@ -185,7 +185,7 @@ nnoremap <leader>p :!python2.7 %<CR>
 nnoremap <leader>r <C-W><C-R>
 " ,s : clear out hilighting from search
 noremap <leader>s :nohlsearch<cr>
-" ,t : Open/close tagbar with
+" ,t : toggle tagbar
 nmap <silent> <leader>t :TagbarToggle<CR>
 
 
