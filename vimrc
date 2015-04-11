@@ -5,8 +5,8 @@
 """ encoding
 set fileencodings=utf-8,gb18030,utf-16,usc-bom,big5,latin1
 set encoding=utf8
-  set termencoding=utf-8
-  "set termencoding=gb18030
+set termencoding=utf-8
+"set termencoding=gb18030
 "set fileencoding=utf8      "no need to set this
 
 
@@ -15,12 +15,6 @@ set encoding=utf8
 "filetype plugin indent on
 set smartindent "set cindent "set autoindent
 "set expandtab   " tab -> blank
-
-
-
-""" map leader
-let mapleader = ","
-let g:mapleader = ","
 
 
 
@@ -108,8 +102,6 @@ vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 " Ctrl+H to search the selected content(visual mode)
 vnoremap <silent> <C-H> :call VisualSelection('replace')<CR>
-" ,<space> clear out hilighting from search
-noremap <leader>s :nohlsearch<cr>
 
 " keep search pattern at the center of the screen."
 nnoremap <silent> n nzz
@@ -166,26 +158,38 @@ function AddTitlePython()
 endf
 autocmd bufnewfile *.py call AddTitlePython()
 
-" leader map
-" ,n toggle line number
-nnoremap <silent> <leader>n :set nonumber!<CR>
-" ,p run python
-nnoremap <leader>p :!python2.7 %<CR>
-" ,r rotate windows
-nnoremap <leader>r <C-W><C-R>
-" ,q :q
-nnoremap <leader>q :q<CR>
-" ,w :w
-nnoremap <leader>w :w<CR>
-" ,a : select all
-map <Leader>a ggVG"
-
 " Make these commonly mistyped commands still work
 command! WQ wq
 command! Wq wq
 command! Wqa wqa
 command! W w
 command! Q q
+
+
+""" map leader
+let mapleader = ","
+let g:mapleader = ","
+
+
+
+""" leader mapping
+" ,a : select all
+nnoremap <leader>a ggVG"
+" ,l : nerd tree tabs
+nmap <silent> <leader>l :NERDTreeTabsToggle<CR>
+" ,n : toggle line number
+nnoremap <silent> <leader>n :set nonumber!<CR>
+" ,p : run python
+nnoremap <leader>p :!python2.7 %<CR>
+" ,r : rotate windows
+nnoremap <leader>r <C-W><C-R>
+" ,s : clear out hilighting from search
+noremap <leader>s :nohlsearch<cr>
+" ,t : Open/close tagbar with
+nmap <silent> <leader>t :TagbarToggle<CR>
+
+
+
 
 """ vundle settings
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -222,7 +226,6 @@ set background=dark
 colorscheme solarized
 
 "" Plugin 'scrooloose/nerdtree'
-nmap <silent> <leader>l :NERDTreeTabsToggle<CR>
 " 1/0: y/n NERDTree open on startup
 let g:nerdtree_tabs_open_on_console_startup = 0
 
@@ -237,8 +240,6 @@ let g:easytags_resolve_links = 1
 let g:easytags_suppress_ctags_warning = 1
 
 "" Plugin 'majutsushi/tagbar'
-" ,t: Open/close tagbar with
-nmap <silent> <leader>t :TagbarToggle<CR>
 " 0: y/n automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 "
