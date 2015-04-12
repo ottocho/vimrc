@@ -12,9 +12,9 @@ set termencoding=utf-8
 
 
 """ indent
-"filetype plugin indent on
+filetype plugin indent on
 set smartindent "set cindent "set autoindent
-"set expandtab   " tab -> blank
+set expandtab   " tab -> blank
 
 
 
@@ -187,13 +187,15 @@ nnoremap <leader>r <C-W><C-R>
 noremap <leader>s :nohlsearch<cr>
 " ,t : toggle tagbar
 nmap <silent> <leader>t :TagbarToggle<CR>
+" ,v : vnew current file
+nnoremap <leader>v :vnew %<CR>
 
 
 
 
 """ vundle settings
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin('/home/ottocho/.vim/bundle/')
+call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'L9'
 " theme
@@ -203,7 +205,7 @@ Plugin 'tomasr/molokai'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+"Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 " git support
 "Plugin 'airblade/vim-gitgutter'
@@ -233,11 +235,11 @@ let g:nerdtree_tabs_open_on_console_startup = 0
 " Where to look for tags files
 "set tags=./.tags,./tags,../tags,~/.vimtags  " project specific tags
 "let g:easytags_dynamic_files = 2
-let g:easytags_file = '~/.tags' " global tag
-let g:easytags_events = ['BufReadPost', 'BufWritePost']
-let g:easytags_async = 1
-let g:easytags_resolve_links = 1
-let g:easytags_suppress_ctags_warning = 1
+"let g:easytags_file = '~/.tags' " global tag
+"let g:easytags_events = ['BufReadPost', 'BufWritePost']
+"let g:easytags_async = 1
+"let g:easytags_resolve_links = 1
+"let g:easytags_suppress_ctags_warning = 1
 
 "" Plugin 'majutsushi/tagbar'
 " 0: y/n automatically whenever possible
@@ -247,6 +249,8 @@ let g:easytags_suppress_ctags_warning = 1
 let delimitMate_expand_cr = 1
 augroup mydelimitMate
   au!
+  "au FileType cpp let b:delimitMate_autoclose = 1
+  au FileType cpp let b:delimitMate_matchpairs = "(:),[:],{:}"
   au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
   au FileType tex let b:delimitMate_quotes = ""
   au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
