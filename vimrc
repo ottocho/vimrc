@@ -13,7 +13,7 @@ set termencoding=utf-8
 
 """ indent
 filetype plugin indent on
-set smartindent "set cindent "set autoindent
+"set smartindent "set cindent "set autoindent
 set expandtab   " tab -> blank
 
 
@@ -212,11 +212,12 @@ Plugin 'majutsushi/tagbar'
 "Plugin 'tpope/vim-fugitive'
 " swtich between source files and header files
 Plugin 'vim-scripts/a.vim'
-Plugin 'Raimondi/delimitMate'
+"Plugin 'Raimondi/delimitMate'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-eunuch'
 Plugin 'scrooloose/nerdcommenter'
-Bundle 'uarun/vim-protobuf'
+Plugin 'uarun/vim-protobuf'
+
 call vundle#end()
 
 
@@ -246,14 +247,14 @@ let g:nerdtree_tabs_open_on_console_startup = 0
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 "
 "" Plugin 'Raimondi/delimitMate'
-let delimitMate_expand_cr = 1
-augroup mydelimitMate
-  au!
-  "au FileType cpp let b:delimitMate_autoclose = 1
-  au FileType cpp let b:delimitMate_matchpairs = "(:),[:],{:}"
-  au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-  au FileType tex let b:delimitMate_quotes = ""
-  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-  au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-augroup END
-
+"let delimitMate_expand_cr = 1
+"augroup mydelimitMate
+"  au!
+"  "au FileType cpp let b:delimitMate_autoclose = 1
+"  au FileType cpp let b:delimitMate_matchpairs = "(:),[:],{:}"
+"  au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
+"  au FileType tex let b:delimitMate_quotes = ""
+"  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
+"  au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+"augroup END
+"
