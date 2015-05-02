@@ -15,11 +15,11 @@ set termencoding=utf-8
 filetype plugin indent on
 "set smartindent "set cindent "set autoindent
 set expandtab   " tab -> blank
+syntax enable
 
 
 
 """ common config
-syntax enable
 set gdefault
 set ignorecase smartcase
 set wildmenu
@@ -31,7 +31,6 @@ set backspace=indent,eol,start
 set nocompatible
 set number
 set history=50
-set background=dark
 set tabstop=4
 set matchpairs+=<:>        " add <> to match pairs
 set shiftwidth=4
@@ -43,7 +42,8 @@ set winaltkeys=no
 set showmode
 set noignorecase
 set autowrite
-"set textwidth=80
+set textwidth=80
+set colorcolumn=+1
 set guioptions-=T
 set noerrorbells
 set winaltkeys=no
@@ -199,7 +199,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'L9'
 " theme
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 " tag and tab
 Plugin 'scrooloose/nerdtree'
@@ -225,8 +225,9 @@ call vundle#end()
 """ Plugin settings
 
 "" Plugin 'altercation/vim-colors-solarized'
+"colorscheme solarized
+colorscheme molokai
 set background=dark
-colorscheme solarized
 
 "" Plugin 'scrooloose/nerdtree'
 " 1/0: y/n NERDTree open on startup
