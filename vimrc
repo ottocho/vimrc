@@ -20,7 +20,6 @@ syntax enable
 
 
 """ common config
-set gdefault
 set ignorecase smartcase
 set wildmenu
 set wildmode=list:longest
@@ -43,7 +42,7 @@ set showmode
 set noignorecase
 set autowrite
 set textwidth=80
-set colorcolumn=+1
+"set colorcolumn=+1
 set guioptions-=T
 set noerrorbells
 set winaltkeys=no
@@ -217,6 +216,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-eunuch'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'uarun/vim-protobuf'
+
 
 call vundle#end()
 
