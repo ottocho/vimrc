@@ -13,7 +13,7 @@ set termencoding=utf-8
 
 """ indent
 filetype plugin indent on
-"set smartindent "set cindent "set autoindent
+set smartindent "set cindent "set autoindent
 set expandtab   " tab -> blank
 syntax enable
 
@@ -140,17 +140,17 @@ func! UpdateDate()
   exe "normal `y"
   exe "normal zz"
 endfunction
-autocmd BufWritePost *.py call UpdateDate()
+"autocmd BufWritePost *.py call UpdateDate()
 
 " add title for new py file
 function AddTitlePython()
-    call setline(1, "#!/usr/bin/python2.7")
+    call setline(1, "#!/usr/bin/env python")
     call append(1, "#coding:utf8")
     call append(2,"")
     call append(3, '"""')
-    call append(4,"Author:         ottocho")
-    call append(5,"Filename:       " . expand("%"))
-    call append(6,"Last modified:  ".strftime("%Y-%m-%d %H:%M"))
+    call append(4,"Author:       ottocho")
+    call append(5,"Filename:     " . expand("%"))
+    call append(6,"Date:         ".strftime("%Y-%m-%d %H:%M"))
     call append(7,"Description:")
     call append(8,"")
     call append(9, '"""')
