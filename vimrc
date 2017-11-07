@@ -9,15 +9,26 @@ set termencoding=utf-8
 "set termencoding=gb18030
 "set fileencoding=utf8      "no need to set this
 
-
+set t_BE=
 
 """ indent
 filetype plugin indent on
-set smartindent "set cindent "set autoindent
-set expandtab   " tab -> blank
 syntax enable
+set smartindent "set cindent "set autoindent
 
 
+""" tab and blank
+""" ts = 'number of spaces that <Tab> in file uses'
+""" sts = 'number of spaces that <Tab> uses while editing'
+""" sw = 'number of spaces to use for (auto)indent step'
+set expandtab   " tab -> blank
+set tabstop=4
+set shiftwidth=4
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype css setlocal ts=2 sw=2 expandtab
+autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+autocmd Filetype vue.html.javascript.css setlocal ts=2 sw=2 expandtab
 
 """ common config
 set ignorecase smartcase
@@ -30,9 +41,7 @@ set backspace=indent,eol,start
 set nocompatible
 set number
 set history=50
-set tabstop=4
 set matchpairs+=<:>        " add <> to match pairs
-set shiftwidth=4
 set ruler
 set incsearch
 set showmatch
@@ -41,7 +50,7 @@ set winaltkeys=no
 set showmode
 set noignorecase
 set autowrite
-set textwidth=80
+"set textwidth=80
 "set colorcolumn=+1
 set guioptions-=T
 set noerrorbells
@@ -179,7 +188,7 @@ nmap <silent> <leader>l :NERDTreeTabsToggle<CR>
 " ,n : toggle line number
 nnoremap <silent> <leader>n :set nonumber!<CR>
 " ,p : run python
-nnoremap <leader>p :!python2.7 %<CR>
+nnoremap <leader>p :!/usr/bin/env python %<CR>
 " ,r : rotate windows
 nnoremap <leader>r <C-W><C-R>
 " ,s : clear out hilighting from search
@@ -216,6 +225,8 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-eunuch'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'uarun/vim-protobuf'
+Plugin 'posva/vim-vue'
+Plugin 'othree/html5.vim'
 
 
 call vundle#end()
@@ -258,4 +269,10 @@ let g:nerdtree_tabs_open_on_console_startup = 0
 "  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
 "  au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 "augroup END
+
+
 "
+" vue
+let g:vue_disable_pre_processors=1
+autocmd FileType vue syntax sync fromstart
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
