@@ -1,5 +1,5 @@
 " ottocho
-" 2015.04.11
+" 2018.09.19
 
 
 """ encoding
@@ -181,22 +181,24 @@ let g:mapleader = ","
 
 
 """ leader mapping
-" ,a : select all
-nnoremap <leader>a ggVG"
-" ,l : toggle nerd tree tabs
-nmap <silent> <leader>l :NERDTreeTabsToggle<CR>
+" ,p : toggle paste mode
+set pastetoggle=<leader>p
 " ,n : toggle line number
 nnoremap <silent> <leader>n :set nonumber!<CR>
-" ,p : run python
-nnoremap <leader>p :!/usr/bin/env python %<CR>
-" ,r : rotate windows
-nnoremap <leader>r <C-W><C-R>
+" ,r : run python
+nnoremap <leader>r :!/usr/bin/env python %<CR>
 " ,s : clear out hilighting from search
 noremap <leader>s :nohlsearch<cr>
 " ,t : toggle tagbar
 nmap <silent> <leader>t :TagbarToggle<CR>
+" ,l : toggle nerd tree tabs
+nmap <silent> <leader>l :NERDTreeTabsToggle<CR>
 " ,v : vnew current file
 nnoremap <leader>v :vnew %<CR>
+" ,x : select all
+"nnoremap <leader>x ggVG"
+" ,r : rotate windows
+" nnoremap <leader>r <C-W><C-R>
 
 
 
@@ -204,13 +206,14 @@ nnoremap <leader>v :vnew %<CR>
 """ vundle settings
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'L9'
 " theme
 "Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 " tag and tab
 Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'xolox/vim-misc'
 "Plugin 'xolox/vim-easytags'
@@ -227,6 +230,8 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'uarun/vim-protobuf'
 Plugin 'posva/vim-vue'
 Plugin 'othree/html5.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 
 
 call vundle#end()
@@ -274,5 +279,6 @@ let g:nerdtree_tabs_open_on_console_startup = 0
 "
 " vue
 let g:vue_disable_pre_processors=1
-autocmd FileType vue syntax sync fromstart
+"autocmd FileType vue syntax sync fromstart
+"autocmd FileType vue.html.javascript.css syntax sync fromstart
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
