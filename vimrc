@@ -232,6 +232,7 @@ Plugin 'posva/vim-vue'
 Plugin 'othree/html5.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'jparise/vim-graphql'
 
 
 call vundle#end()
