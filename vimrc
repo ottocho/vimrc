@@ -1,6 +1,37 @@
 " ottocho
-" 2018.09.19
+" 2018.10.30
 
+
+""" vundle settings
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'L9'
+" theme
+Plugin 'tomasr/molokai'
+" tag and tab
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'xolox/vim-misc'
+"Plugin 'xolox/vim-easytags'
+Plugin 'majutsushi/tagbar'
+"" git support
+"Plugin 'airblade/vim-gitgutter'
+"Plugin 'tpope/vim-fugitive'
+" swtich between source files and header files
+Plugin 'vim-scripts/a.vim'
+"Plugin 'Raimondi/delimitMate'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'tpope/vim-eunuch'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'uarun/vim-protobuf'
+Plugin 'posva/vim-vue'
+Plugin 'othree/html5.vim'
+Plugin 'mxw/vim-jsx'
+Plugin 'pangloss/vim-javascript'
+Plugin 'jparise/vim-graphql'
+call vundle#end()
 
 """ encoding
 set fileencodings=utf-8,gb18030,utf-16,usc-bom,big5,latin1
@@ -11,11 +42,13 @@ set termencoding=utf-8
 
 set t_BE=
 
+""" filetype
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+
 """ indent
 filetype plugin indent on
 syntax enable
 set smartindent "set cindent "set autoindent
-
 
 """ tab and blank
 """ ts = 'number of spaces that <Tab> in file uses'
@@ -28,6 +61,7 @@ autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
 autocmd Filetype css setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+autocmd Filetype graphql setlocal ts=2 sw=2 expandtab
 autocmd Filetype vue.html.javascript.css setlocal ts=2 sw=2 expandtab
 
 """ common config
@@ -203,41 +237,6 @@ nnoremap <leader>v :vnew %<CR>
 
 
 
-""" vundle settings
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'L9'
-" theme
-"Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
-" tag and tab
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'xolox/vim-misc'
-"Plugin 'xolox/vim-easytags'
-Plugin 'majutsushi/tagbar'
-" git support
-"Plugin 'airblade/vim-gitgutter'
-"Plugin 'tpope/vim-fugitive'
-" swtich between source files and header files
-Plugin 'vim-scripts/a.vim'
-"Plugin 'Raimondi/delimitMate'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'tpope/vim-eunuch'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'uarun/vim-protobuf'
-Plugin 'posva/vim-vue'
-Plugin 'othree/html5.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'jparise/vim-graphql'
-
-
-call vundle#end()
-
-
 
 """ Plugin settings
 
@@ -279,7 +278,6 @@ let g:nerdtree_tabs_open_on_console_startup = 0
 
 "
 " vue
-let g:vue_disable_pre_processors=1
-"autocmd FileType vue syntax sync fromstart
-"autocmd FileType vue.html.javascript.css syntax sync fromstart
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+"let g:vue_disable_pre_processors=1
+autocmd FileType vue syntax sync fromstart
+autocmd FileType vue.html.javascript.css syntax sync fromstart
