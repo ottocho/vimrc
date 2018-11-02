@@ -1,5 +1,6 @@
 " ottocho
-" 2018.10.30
+" Thu, Nov 01, 2018
+
 
 
 """ vundle settings
@@ -7,31 +8,53 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'L9'
-" theme
-Plugin 'tomasr/molokai'
-" tag and tab
+Plugin 'tomasr/molokai'   " theme
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'xolox/vim-misc'
-"Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
-"" git support
-"Plugin 'airblade/vim-gitgutter'
-"Plugin 'tpope/vim-fugitive'
-" swtich between source files and header files
-Plugin 'vim-scripts/a.vim'
-"Plugin 'Raimondi/delimitMate'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-eunuch'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'uarun/vim-protobuf'
-Plugin 'posva/vim-vue'
 Plugin 'othree/html5.vim'
-Plugin 'mxw/vim-jsx'
 Plugin 'pangloss/vim-javascript'
 Plugin 'jparise/vim-graphql'
+Plugin 'moll/vim-node'
+Plugin 'w0rp/ale'
+Plugin 'skywind3000/asyncrun.vim'
+"
+""" temporarily disabled packages
+"" Plugin 'vim-scripts/a.vim'
+"" Plugin 'Raimondi/delimitMate'
+"" Plugin 'xolox/vim-easytags'
+"" Plugin 'prettier/vim-prettier' https://prettier.io/docs/en/vim.html
+"Plugin 'mxw/vim-jsx' have problem in indent
 call vundle#end()
+
+
+
+""" Plugin settings
+" theme
+colorscheme molokai
+set background=dark
+" scrooloose/nerdtree
+let g:nerdtree_tabs_open_on_console_startup = 0   " not open on startup
+" majutsushi/tagbar
+"autocmd BufEnter * nested :call tagbar#autoopen(0)
+" w0rp/ale
+let g:ale_sign_error = '>'
+let g:ale_sign_warning = '.'
+let g:ale_lint_on_enter = 0 " not run linter on opening a new file
+let g:ale_lint_on_text_changed = 0 " not run linter when text changed
+let g:ale_lint_on_save = 1 " run linter when saving a file
+" pangloss/vim-javascript.
+let g:javascript_plugin_flow = 1  " enable flow
+" mxw/vim-jsx
+let g:jsx_ext_required = 0  " disable jsx extension for react
+
+
 
 """ encoding
 set fileencodings=utf-8,gb18030,utf-16,usc-bom,big5,latin1
@@ -40,20 +63,36 @@ set termencoding=utf-8
 "set termencoding=gb18030
 "set fileencoding=utf8      "no need to set this
 
-set t_BE=
 
-""" filetype
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+
+""" pasting
+set t_BE=
+if &term =~ "xterm.*"
+    let &t_ti = &t_ti . "\e[?2004h"
+    let &t_te = "\e[?2004l" . &t_te
+    function XTermPasteBegin(ret)
+        set pastetoggle=<Esc>[201~
+        set paste
+        return a:ret
+    endfunction
+    map <expr> <Esc>[200~ XTermPasteBegin("i")
+    imap <expr> <Esc>[200~ XTermPasteBegin("")
+    cmap <Esc>[200~ <nop>
+    cmap <Esc>[201~ <nop>
+endif
+
+
 
 """ indent
 filetype plugin indent on
 syntax enable
-set smartindent "set cindent "set autoindent
+set autoindent
+set smarttab
+set cindent
+
+
 
 """ tab and blank
-""" ts = 'number of spaces that <Tab> in file uses'
-""" sts = 'number of spaces that <Tab> uses while editing'
-""" sw = 'number of spaces to use for (auto)indent step'
 set expandtab   " tab -> blank
 set tabstop=4
 set shiftwidth=4
@@ -61,8 +100,14 @@ autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
 autocmd Filetype css setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+autocmd Filetype javascript.jsx setlocal ts=2 sw=2 expandtab
 autocmd Filetype graphql setlocal ts=2 sw=2 expandtab
-autocmd Filetype vue.html.javascript.css setlocal ts=2 sw=2 expandtab
+" note:
+" ts = 'number of spaces that <Tab> in file uses'
+" sts = 'number of spaces that <Tab> uses while editing'
+" sw = 'number of spaces to use for (auto)indent step'
+
+
 
 """ common config
 set ignorecase smartcase
@@ -120,13 +165,11 @@ noremap <silent> _ g_
 vnoremap < <gv
 vnoremap > >gv
 
-" return to last edit position
-if has("autocmd")
-  autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
-endif
+" return to last edit position when open the file
+autocmd BufReadPost *
+ \ if line("'\"") > 0 && line("'\"") <= line("$") |
+ \   exe "normal! g`\"" |
+ \ endif
 
 " save whenever you lose focus
 autocmd FocusLost * :wa
@@ -151,12 +194,12 @@ nnoremap <silent> N Nzz
 nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 
+" visual selection
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
 endfunction
-
 function! VisualSelection(direction) range
     let l:saved_reg = @"
     execute "normal! vgvy"
@@ -176,13 +219,15 @@ function! VisualSelection(direction) range
     let @" = l:saved_reg
 endfunction
 
-" auto update the `last modified time`
-func! UpdateDate()
-  exe "normal my"
-  exe "1,8 s/Last modified:.*/Last modified:".strftime("  %Y-%m-%d %H:%M")."/e"
-  exe "normal `y"
-  exe "normal zz"
-endfunction
+
+
+" auto update the last modified time of Python file
+"func! UpdateDate()
+"  exe "normal my"
+"  exe "1,8 s/Last modified:.*/Last modified:".strftime("  %Y-%m-%d %H:%M")."/e"
+"  exe "normal `y"
+"  exe "normal zz"
+"endfunction
 "autocmd BufWritePost *.py call UpdateDate()
 
 " add title for new py file
@@ -198,7 +243,7 @@ function AddTitlePython()
     call append(8,"")
     call append(9, '"""')
 endf
-autocmd bufnewfile *.py call AddTitlePython()
+"autocmd bufnewfile *.py call AddTitlePython()
 
 " Make these commonly mistyped commands still work
 command! WQ wq
@@ -208,6 +253,7 @@ command! W w
 command! Q q
 
 
+
 """ map leader
 let mapleader = ","
 let g:mapleader = ","
@@ -215,12 +261,10 @@ let g:mapleader = ","
 
 
 """ leader mapping
-" ,p : toggle paste mode
-set pastetoggle=<leader>p
 " ,n : toggle line number
 nnoremap <silent> <leader>n :set nonumber!<CR>
-" ,r : run python
-nnoremap <leader>r :!/usr/bin/env python %<CR>
+" ,r : rotate windows
+nnoremap <leader>r <C-W><C-R>
 " ,s : clear out hilighting from search
 noremap <leader>s :nohlsearch<cr>
 " ,t : toggle tagbar
@@ -231,53 +275,5 @@ nmap <silent> <leader>l :NERDTreeTabsToggle<CR>
 nnoremap <leader>v :vnew %<CR>
 " ,x : select all
 "nnoremap <leader>x ggVG"
-" ,r : rotate windows
-" nnoremap <leader>r <C-W><C-R>
-
-
-
-
-
-""" Plugin settings
-
-"" Plugin 'altercation/vim-colors-solarized'
-"colorscheme solarized
-colorscheme molokai
-set background=dark
-
-"" Plugin 'scrooloose/nerdtree'
-" 1/0: y/n NERDTree open on startup
-let g:nerdtree_tabs_open_on_console_startup = 0
-
-"" Plugin 'xolox/vim-easytags'
-" Where to look for tags files
-"set tags=./.tags,./tags,../tags,~/.vimtags  " project specific tags
-"let g:easytags_dynamic_files = 2
-"let g:easytags_file = '~/.tags' " global tag
-"let g:easytags_events = ['BufReadPost', 'BufWritePost']
-"let g:easytags_async = 1
-"let g:easytags_resolve_links = 1
-"let g:easytags_suppress_ctags_warning = 1
-
-"" Plugin 'majutsushi/tagbar'
-" 0: y/n automatically whenever possible
-"autocmd BufEnter * nested :call tagbar#autoopen(0)
-"
-"" Plugin 'Raimondi/delimitMate'
-"let delimitMate_expand_cr = 1
-"augroup mydelimitMate
-"  au!
-"  "au FileType cpp let b:delimitMate_autoclose = 1
-"  au FileType cpp let b:delimitMate_matchpairs = "(:),[:],{:}"
-"  au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-"  au FileType tex let b:delimitMate_quotes = ""
-"  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-"  au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-"augroup END
-
-
-"
-" vue
-"let g:vue_disable_pre_processors=1
-autocmd FileType vue syntax sync fromstart
-autocmd FileType vue.html.javascript.css syntax sync fromstart
+" ,r : run python
+" nnoremap <leader>r :!/usr/bin/env python %<CR>
