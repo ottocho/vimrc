@@ -49,6 +49,11 @@ let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0 " not run linter on opening a new file
 let g:ale_lint_on_text_changed = 0 " not run linter when text changed
 let g:ale_lint_on_save = 1 " run linter when saving a file
+let b:ale_linters = { 'javascript': ['eslint', 'flow'] }
+let g:ale_echo_msg_info_str = 'I'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%][%severity%] %s'
 " pangloss/vim-javascript.
 let g:javascript_plugin_flow = 1  " enable flow
 " mxw/vim-jsx
