@@ -102,6 +102,7 @@ autocmd Filetype css setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript.jsx setlocal ts=2 sw=2 expandtab
 autocmd Filetype graphql setlocal ts=2 sw=2 expandtab
+autocmd Filetype json setlocal ts=2 sw=2 expandtab
 " note:
 " ts = 'number of spaces that <Tab> in file uses'
 " sts = 'number of spaces that <Tab> uses while editing'
