@@ -1,37 +1,36 @@
 " ottocho
-" Thu, Nov 01, 2018
+" Tue, Jul 21, 2020
 
 
-
-""" vundle settings
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'L9'
-Plugin 'tomasr/molokai'   " theme
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'xolox/vim-misc'
-Plugin 'majutsushi/tagbar'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'tpope/vim-eunuch'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'uarun/vim-protobuf'
-Plugin 'othree/html5.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'jparise/vim-graphql'
-Plugin 'moll/vim-node'
-Plugin 'w0rp/ale'
-Plugin 'skywind3000/asyncrun.vim'
+""" vim-plug
+" https://github.com/junegunn/vim-plug
+call plug#begin('~/.vim/plugged')
+Plug 'tomasr/molokai'   " theme
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'xolox/vim-misc'
+Plug 'majutsushi/tagbar'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-eunuch'
+Plug 'scrooloose/nerdcommenter'
+Plug 'dense-analysis/ale'
+Plug 'skywind3000/asyncrun.vim'
+" languages support
+Plug 'moll/vim-node'
+Plug 'tpope/vim-rails'
+Plug 'uarun/vim-protobuf'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'jparise/vim-graphql'
 "
 """ temporarily disabled packages
-"" Plugin 'vim-scripts/a.vim'
-"" Plugin 'Raimondi/delimitMate'
-"" Plugin 'xolox/vim-easytags'
-"" Plugin 'prettier/vim-prettier' https://prettier.io/docs/en/vim.html
-"Plugin 'mxw/vim-jsx' have problem in indent
-call vundle#end()
+"" Plug 'vim-scripts/a.vim'
+"" Plug 'Raimondi/delimitMate'
+"" Plug 'xolox/vim-easytags'
+"" Plug 'prettier/vim-prettier' https://prettier.io/docs/en/vim.html
+"Plug 'mxw/vim-jsx' have problem in indent
+call plug#end()
 
 
 
@@ -41,9 +40,7 @@ colorscheme molokai
 set background=dark
 " scrooloose/nerdtree
 let g:nerdtree_tabs_open_on_console_startup = 0   " not open on startup
-" majutsushi/tagbar
-"autocmd BufEnter * nested :call tagbar#autoopen(0)
-" w0rp/ale
+" dense-analysis/ale
 let g:ale_sign_error = '>'
 let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0 " not run linter on opening a new file
@@ -54,11 +51,11 @@ let g:ale_echo_msg_info_str = 'I'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%][%severity%] %s'
+""" deprecated settings
 " pangloss/vim-javascript.
 let g:javascript_plugin_flow = 1  " enable flow
 " mxw/vim-jsx
 let g:jsx_ext_required = 0  " disable jsx extension for react
-
 
 
 """ encoding
@@ -67,7 +64,6 @@ set encoding=utf8
 set termencoding=utf-8
 "set termencoding=gb18030
 "set fileencoding=utf8      "no need to set this
-
 
 
 """ pasting
@@ -238,7 +234,7 @@ endfunction
 
 " add title for new py file
 function AddTitlePython()
-    call setline(1, "#!/usr/bin/env python")
+    call setline(1, "#!/usr/bin/env python3")
     call append(1, "#coding:utf8")
     call append(2,"")
     call append(3, '"""')
@@ -249,7 +245,7 @@ function AddTitlePython()
     call append(8,"")
     call append(9, '"""')
 endf
-"autocmd bufnewfile *.py call AddTitlePython()
+autocmd bufnewfile *.py call AddTitlePython()
 
 " Make these commonly mistyped commands still work
 command! WQ wq
@@ -273,13 +269,16 @@ nnoremap <silent> <leader>n :set nonumber!<CR>
 nnoremap <leader>r <C-W><C-R>
 " ,s : clear out hilighting from search
 noremap <leader>s :nohlsearch<cr>
-" ,t : toggle tagbar
-nmap <silent> <leader>t :TagbarToggle<CR>
 " ,l : toggle nerd tree tabs
 nmap <silent> <leader>l :NERDTreeTabsToggle<CR>
 " ,v : vnew current file
 nnoremap <leader>v :vnew %<CR>
-" ,x : select all
-"nnoremap <leader>x ggVG"
+""" deprecated mappings
 " ,r : run python
 " nnoremap <leader>r :!/usr/bin/env python %<CR>
+" nnoremap <leader>r :!rake<CR>
+" ,x : select all
+"nnoremap <leader>x ggVG"
+" ,t : toggle tagbar
+nmap <silent> <leader>t :TagbarToggle<CR>
+
